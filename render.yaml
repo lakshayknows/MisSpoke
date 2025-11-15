@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: mis-spoke
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port 8000
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      # --- Agora core ---
+      - key: AGORA_APP_ID
+        sync: false
+      - key: AGORA_APP_CERTIFICATE
+        sync: false
+      - key: AGORA_AGENT_ID
+        sync: false
+      - key: AGORA_CHANNEL
+        sync: false
+      # Optional external token server; leave empty to use local token builder
+      - key: AGORA_TOKEN_SERVER_URL
+        sync: false
+      # --- Agora ConvAI REST ---
+      - key: AGORA_CONVAI_CHAT_URL
+        sync: false
+      - key: AGORA_CONVAI_API_KEY
+        sync: false
+      - key: AGORA_CREDENTIALS
+        sync: false
+      # --- Groq LLM ---
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_API_URL
+        value: https://api.groq.com/openai/v1/chat/completions
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      # --- Azure Speech ---
+      - key: AZURE_SPEECH_KEY
+        sync: false
+      - key: AZURE_SPEECH_REGION
+        sync: false
+      - key: AZURE_SPEECH_VOICE
+        value: en-US-AndrewMultilingualNeural
+      # --- Misc ---
+      - key: RATE_LIMIT_WINDOW_SECONDS
+        value: "10"
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "10"
